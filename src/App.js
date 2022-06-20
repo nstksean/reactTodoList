@@ -3,20 +3,19 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <div className="workSpace">
         <div className="bg_navbar">
             <div className="navContainer">   
             <div className="filter">My Tasks</div>
             <div className="filter">In Progress</div>
             <div className="filter">Completed</div> 
+            </div>
         </div>
 
         <div className="input">
             <input className="inputer" placeholder=" + Add Task"/>
         </div>
 
-    <div className="todoList">
-
+        <div className="todoList">
         <div className="todoItem">
 
             <div className="todoCheckbox">
@@ -41,8 +40,8 @@ function App() {
             <div className="checkedTodoItem">
                 <div className="todoCheckbox">
                     <div className="checkLabel">
-                    <input type="checkbox" id="checkbox"/>
-                    <label for="checkbox">Type Something Here…</label> 
+                    <input type="checkbox" id="checkedBox"/>
+                    <label for="checkedBox">Type Something Here…</label> 
                     </div>
                       
                     <div className="todoBtn">
@@ -59,8 +58,6 @@ function App() {
             </div>
     
         </div>
-    </div>
-    </div>
     </div>
   );
 }
