@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## This app made for learning react
+
+SeanLin made this app. It is not good enough. And need to fix.
+
 ## Available Scripts
 
 In the project directory, you can run:
