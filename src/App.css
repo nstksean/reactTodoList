@@ -1,141 +1,224 @@
 .App {
-  display: flex;
-  background-color: #E1E1E1 ;
-  width:100%;
-  height:100%;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    background-color: #E1E1E1;
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
 }
 
-.bg_navbar{
+.navContainer {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
     width: 100%;
     font-family: Roboto-Regular;
-    background: #4A90E2 ;
+    background: #4A90E2;
     font-size: 24px;
     color: #00408B;
-    display: flex ;
-}
-.navContainer{
     display: flex;
-    width: 100%;
-    justify-content:space-evenly;
-    text-align: center;
 }
 
-.bg_navbar .navContainer .filter{
-    width: 160px ;
-    height:76px;
-    box-sizing: border-box;
+@media screen and (max-width:700px) {
+
+    .bg_navbar,
+    .navContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+.filter {
+    width: 16vw;
+    height: auto;
     text-align: center;
     justify-content: center;
-    padding: 24px 0px 24px 0px ;
+    padding: 24px 0px 24px 0px;
     margin: 0 30px 0 30px;
 }
-.bg_navbar .filter:hover{
+
+.filter:hover {
+    box-sizing: border-box;
+    padding: 24px 0px 19px 0px;
     border-bottom: #00408B 5px solid;
     color: #FFFFFF;
-   
+
 }
-.input{
-    display:flex;
-    justify-content:center;
+
+@media screen and (max-width:700px) {
+    .filter {
+        width: 100%;
+    }
+}
+
+.input {
+    display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: auto;
-    width:60%;
-    height:6%;
+    margin: 0;
+    width: 60%;
+    height: 6%;
     font-family: Roboto-Regular;
     font-size: 24px;
-    text-align : left;
+    text-align: left;
 }
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color:#C8C8C8;}
-.inputer{
-    width:100%;
-    height:100%;
+
+@media screen and (max-width:700px) {
+    .input {
+        width: 90%;
+    }
+}
+
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #C8C8C8;
+}
+
+.inputer {
+    width: 100%;
+    height: 100%;
     font-size: 24px;
     text-align: left;
-    margin : 2% 0 2% 0 ;
-    color:#000000;
+    margin: 2% 0 2% 0;
+    color: #000000;
     border-radius: 5px;
     border: 2px solid #C8C8C8;
 }
 
-.todoList{
-    display:flex;
-    justify-content:start;
+.todoList {
+    display: flex;
+    justify-content: start;
     flex-direction: column;
-    margin:auto;
-    width:60%;
+    margin: 0;
+    width: 60%;
     height: 92.57%;
     font-family: Roboto-Regular;
     font-size: 24px;
     text-align: left;
     background-color: #E1E1E1;
 }
-#checkbox{
-    height: 24px;
-    width: 24px;
-    margin-right:1.56%;
+
+@media screen and (max-width:700px) {
+    .todoList {
+        width: 90%;
+    }
 }
-.todoCheckbox{
-    width:96%;
-    margin-left:3.125%;
-    display:flex;
-    justify-content:space-between;
+
+.openTodoItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    height: 52vh;
+    background-color: #F2F2F2;
+    box-shadow: 0 4px 4px 0 #C8C8C8;
+    border-radius: 5px;
+    margin-bottom: 0.8%;
+}
+
+.openTodoCheckbox {
+    width: 96%;
+    padding: 2%;
+    border-bottom: 2px solid #C8C8C8;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
-.checkLabel{
-    width:80%;
+
+.openTodoDetail {
+    margin: 2% 0 2% 0;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
 }
-#checkedBox{
+
+.dateContainer {
+    display: inline-flex;
+    width: 76%;
+}
+
+.commitContanier {
+    display: inline-flex;
+}
+
+#checkbox {
     height: 24px;
     width: 24px;
-    margin-right:1.56%;
+    margin-right: 1.56%;
 }
-.checkbox{
-    display:flex;
-    justify-content: space-between;
-    width:auto;
 
-}
-.checkedBox{
-    display:flex;
-    justify-content: space-between;
-    width:auto;
-}
-.todoCheckbox .checkbox{
-    width:24%;
-}
-.todoData{
-    margin-left:7%;
-
-}
-.todoBtn{
+.todoCheckbox {
+    width: 96%;
+    margin-left: 3.125%;
     display: flex;
-    flex-direction:row-reverse;
-    justify-content:space-between;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkLabel {
+    width: 80%;
+}
+
+#checkedBox {
+    height: 24px;
+    width: 24px;
+    margin-right: 1.56%;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+}
+
+.checkedBox {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+}
+
+.todoCheckbox .checkbox {
+    width: 24%;
+}
+
+.todoData {
+    margin-left: 7%;
+
+}
+
+.todoBtn {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     width: 20%;
 
 
 }
-.todoItem{
+
+.todoItem {
     box-sizing: border-box;
-    padding:1.56%;
+    padding: 2.34% 3.1% 2.34% 3.1%;
     background-color: #F2F2F2;
     margin-bottom: 0.8%;
 
 }
-.checked_todoItem{
+
+.checked_todoItem {
     box-sizing: border-box;
+    padding: 2.34% 3.1% 2.34% 3.1%;
     background: #FFF2DC;
     margin-bottom: 0.78%;
 
 }
-.checkedTodoItem{
-    background:#FFF2DC;
+
+.checkedTodoItem {
+    background: #FFF2DC;
     box-sizing: border-box;
     padding: 1.56%;
     margin-bottom: 0.8%;
 }
-
