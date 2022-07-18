@@ -80,6 +80,12 @@ form {
     }
 }
 
+input:checked+label {
+    text-decoration: line-through;
+    font-family: Roboto-Medium;
+    font-size: 24px;
+    color: #9B9B9B;
+}
 
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -116,17 +122,7 @@ form {
     }
 }
 
-.openTodoItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    height: 100%;
-    background-color: #F2F2F2;
-    box-shadow: 0 4px 4px 0 #C8C8C8;
-    border-radius: 5px;
-    margin-bottom: 0.8%;
-}
+
 
 .openTodoCheckbox {
     width: 96%;
@@ -181,8 +177,8 @@ form {
     font-family: Roboto-Regular;
     font-size: 24px;
     text-align: center;
-    color: #D0021B;
-    background-color: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #D0021B;
     width: 50%;
     border-width: 0px;
     border-style: none;
@@ -191,8 +187,8 @@ form {
 }
 
 .cancel:hover {
-    color: #FFFFFF;
-    background-color: #D0021B;
+    color: #D0021B;
+    background-color: #FdFdFd;
 }
 
 .addTask {
@@ -211,10 +207,10 @@ form {
 
 .addTask:hover {
     background: #FFFFFF;
-    color: #4A90E2;
+    color: #3982D7;
 }
 
-#checkbox {
+input[type='checkbox'] {
     height: 24px;
     width: 24px;
     margin-right: 1.56%;
@@ -222,11 +218,11 @@ form {
 
 .todoCheckbox {
     width: 96%;
-    margin-left: 3.125%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 
 .checkLabel {
     width: 60%;
@@ -273,17 +269,9 @@ form {
 
 .todoItem {
     box-sizing: border-box;
-    padding: 2.34% 3.1% 2.34% 3.1%;
+    padding: 1.56%;
     background-color: #F2F2F2;
     margin-bottom: 0.8%;
-
-}
-
-.checked_todoItem {
-    box-sizing: border-box;
-    padding: 2.34% 3.1% 2.34% 3.1%;
-    background: #FFF2DC;
-    margin-bottom: 0.78%;
 
 }
 
@@ -291,5 +279,29 @@ form {
     background: #FFF2DC;
     box-sizing: border-box;
     padding: 1.56%;
+    margin-bottom: 0.8%;
+}
+
+.checkedOpenTodoItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #FFF2DC;
+    box-shadow: 0 4px 4px 0 #C8C8C8;
+    border-radius: 5px;
+    margin-bottom: 0.8%;
+}
+
+.openTodoItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #F2F2F2;
+    box-shadow: 0 4px 4px 0 #C8C8C8;
+    border-radius: 5px;
     margin-bottom: 0.8%;
 }
