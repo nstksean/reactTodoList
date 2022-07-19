@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import './App.css';
 
@@ -6,7 +7,9 @@ function TodoItem({
     className, todo, idx,
     handleDeleteTodo,
     handleChceckboxToggleIsDone,
-    handleToggleIsImportant }) {
+    handleToggleIsImportant,
+    handleAddTask }) {
+
     const handleChceckboxChange = () => {
         handleChceckboxToggleIsDone(todo.id)
     }
@@ -17,8 +20,18 @@ function TodoItem({
         handleToggleIsImportant(todo.id)
     }
     const getImportant = () => {
-        console.log(todo.isImportant)
         return todo.isImportant ? "checkedOpenTodoItem" : "openTodoItem";
+    }
+    const handleAddClick = () => {
+        console.log(commit)
+        handleAddTask(todo.id)
+    }
+
+    const [commit, setCommit] = useState('')
+
+    const handleCommitChange = (e) => {
+        console.log(e.target.value)
+        setCommit(e.target.value)
     }
 
     return (
@@ -45,25 +58,32 @@ function TodoItem({
 
                 <div className="openTodoDetail">
                     <div className="labelContainer">
-                        <div className='faviconDate'>D</div>
+                        <div className='faviconDate'>D </div>
                         <label htmlFor="date">date :</label>
                     </div>
-                    <div className='dateInput'><input type="date" id="date" name="todo-commit" /></div>
+                    <div className='dateInput'>
+                        <input type="date" id="date" name="todo-commit" />
+                    </div>
                     <div className="labelContainer">
                         <div className='faviconCommit'>C
                         </div>
-                        <label htmlFor="commit">commit :</label>
+                        <label htmlFor={todo.id}>commit :</label>
                     </div>
-                    <div className='commitArea' ><textarea value={"_"}
-                        id="commit"
-                        name="todo-date"
-                        row={35}
-                        cols={35} /></div>
+                    <div className='commitArea' >
+                        <textarea
+                            defaultValue={"what"}
+                            id={todo.id}
+                            name="commit"
+                            onChange={handleCommitChange}
+                            row={4}
+                            cols={35} /></div>
                 </div>
 
                 <div className='todoDetailBtnContainer'>
                     <button className="cancel">X Cancel</button>
-                    <button className="addTask">+ Add Task</button>
+                    <button
+                        className="addTask"
+                        onClick={handleAddClick}>+ Add Task</button>
                 </div>
 
             </div>
@@ -76,13 +96,14 @@ function TodoItem({
 function App() {
 
     const [todos, setTodos] = useState([
-        // {
-        //     id: 1,
-        //     content: 'default 1',
-        //     isDone: true,
-        //     isWrite: true,
-        //     isImportant: false,
-        // },
+        {
+            id: 1,
+            content: 'default 1',
+            isDone: true,
+            isWrite: true,
+            isImportant: false,
+            commit: '好重要'
+        },
         // {
         //     id: 2,
         //     content: 'default 2',
@@ -95,6 +116,10 @@ function App() {
     const [value, setValue] = useState('')
 
     const handleInputChange = (e) => {
+        setValue(e.target.value)
+    }
+
+    const handleCommitChange = (e) => {
         setValue(e.target.value)
     }
 
@@ -114,11 +139,24 @@ function App() {
                 isDone: false,
                 isWrite: false,
                 isImportant: false,
+                commit: [],
             }, ...prev]
         })
 
         setValue('')
     }
+
+    const handleAddTask = id => {
+        const changeValue = todos.map(todo => {
+            if (todo.id !== id) return todo;
+            return {
+                ...todo,
+                commit: value,
+            };
+        });
+        setTodos(changeValue);
+    }
+
     const handleChceckboxToggleIsDone = id => {
         const changeValue = todos.map(todo => {
             if (todo.id !== id) return todo
@@ -139,8 +177,8 @@ function App() {
             }
         })
         setTodos(changeValue)
-
     }
+
 
 
     return (
@@ -152,7 +190,8 @@ function App() {
             </div>
             <form onSubmit={handleInputSubmit}>
                 <div className="input">
-                    <input className="inputer" placeholder=" + Add Task"
+                    <input className="inputer"
+                        placeholder=" + Add Task"
                         type="text"
                         name='data'
                         value={value}
@@ -168,9 +207,11 @@ function App() {
                     todo={todo}
                     idx={idx}
                     setTodos={setTodos}
+                    commit={todo.commit}
                     handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
                     handleDeleteTodo={handleDeleteTodo}
                     handleToggleIsImportant={handleToggleIsImportant}
+                    handleAddTask={handleAddTask}
                 />
             )
             }
@@ -200,16 +241,21 @@ function App() {
                             </div>
                             <label htmlFor="commit">commit :</label>
                         </div>
-                        <div className='commitArea' ><textarea value={"_"}
-                            id="commit"
-                            name="todo-date"
-                            row={35}
-                            cols={35} /></div>
+                        <div className='commitArea' >
+                            <textarea
+                                defaultValue={"what"}
+                                id={todos.id}
+                                name="commit"
+                                onChange={handleCommitChange}
+                                row={4}
+                                cols={35} /></div>
                     </div>
 
                     <div className='todoDetailBtnContainer'>
                         <button className="cancel">X Cancel</button>
-                        <button className="addTask">+ Add Task</button>
+                        <button className="addTask"
+
+                        >+ Add Task</button>
                     </div>
 
                 </div>
