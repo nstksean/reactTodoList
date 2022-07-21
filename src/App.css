@@ -169,6 +169,7 @@ input:checked+label {
 
 .todoDetailBtnContainer {
     display: inline-flex;
+    justify-content: flex-start;
     align-items: flex-end;
     width: 100%;
 }
@@ -251,7 +252,7 @@ input[type='checkbox'] {
     width: 24%;
 }
 
-.todoData {
+.todoDetail {
     margin-left: 7%;
 
 }
@@ -304,4 +305,8 @@ input[type='checkbox'] {
     box-shadow: 0 4px 4px 0 #C8C8C8;
     border-radius: 5px;
     margin-bottom: 0.8%;
+}
+
+.hide {
+    display: none;
 }
