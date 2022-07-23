@@ -11,8 +11,9 @@ function TodoItem({
     handleToggleIsImportant,
     handleAddTask,
     handleDateSet,
-    handleLayoutChange,
+    handleToggleCancel,
     handleToggleIsWrite,
+
 }) {
     // const [input, setInput] = useState("")
     const handleChceckboxChange = () => {
@@ -36,10 +37,24 @@ function TodoItem({
     const noDetail = () => {
         return todo.isWrite ? "hide" : ""
     }
+
+    // const showDetailDate = () => {
+    //     return todo.date !== "" ? "" : "hide"
+    // }
+    // const showDetailCommit = () => {
+    //     return todo.commit !== "" ? "" : "hide"
+    // }
+
     const handleAddClick = () => {
         // handleAddTask(todo.id)
         // handleDateSet(todo.id)
-        alert("Click Add|||=.=")
+        //test
+        handleWriteClick()
+        // alert("Click Add|||=.=")
+
+    }
+    const handleCancelClick = () => {
+        handleToggleCancel(todo.id, todo.date, todo.commit, handleWriteClick)
     }
     const handleDateChange = (e) => {
         handleDateSet(todo.id, e.target.value)
@@ -106,16 +121,19 @@ function TodoItem({
                             cols={35} /></div>
                 </div>
                 <div className={noDetail() + " " + "todoDetail"}>
+                    <span className="date" >
+                        {todo.date === ' ' || "" ? " " : "Date:"}</span>
                     <span className="date">
-                        {todo.date === [] ? "" : "Date:"}</span>
-                    <span className="detailDate">
-                        {todo.date === [] ? "" : todo.date}</span>
-                    <span className="comment">
-                        {todo.commit === '' ? "" : "commit"}</span>
+                        {todo.date === ' ' || "" ? " " : todo.date}</span>
+                    <span className="date">
+                        {todo.commit === ' ' || "" ? "" : "commit"}</span>
                 </div>
 
                 <div className={getDetail() + " " + 'todoDetailBtnContainer'}>
-                    <button className="cancel">X Cancel</button>
+                    <button className="cancel"
+                        onClick={handleCancelClick}>
+                        X Cancel
+                    </button>
                     <button
                         className="addTask"
                         onClick={handleAddClick}>
@@ -193,8 +211,8 @@ function App() {
                 isDone: false,
                 isWrite: false,
                 isImportant: false,
-                commit: [],
-                date: [],
+                commit: "",
+                date: "",
             }, ...prev]
         })
 
@@ -250,6 +268,20 @@ function App() {
     const handleAddClick = () => {
     }
 
+    const handleToggleCancel = (id, date, commit, handleWriteClick) => {
+        console.log("handleToggleancel", id, date, commit);
+        const changeValue = todos.map(todo => {
+            if (todo.id !== id) return todo
+            return {
+                ...todo,
+                date: " ",
+                commit: " ",
+            }
+        })
+        handleWriteClick()
+        setTodos(changeValue)
+
+    }
 
     return (
         <div className="App">
@@ -286,6 +318,7 @@ function App() {
                     handleDateSet={handleDateSet}
                     handleAddClick={handleAddClick}
                     handleToggleIsWrite={handleToggleIsWrite}
+                    handleToggleCancel={handleToggleCancel}
 
                 />
             )
@@ -334,7 +367,8 @@ function App() {
                     </div>
 
                     <div className='todoDetailBtnContainer'>
-                        <button className="cancel">X Cancel</button>
+                        <button className="cancel"
+                        >X Cancel</button>
                         <button className="addTask"
                             onClick={handleAddClick}
                         >+ Add Task</button>
