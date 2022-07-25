@@ -245,12 +245,6 @@ input[type='checkbox'] {
 
 }
 
-.checkedBox {
-    display: flex;
-    justify-content: space-between;
-    width: auto;
-}
-
 .todoCheckbox .checkbox {
     width: 24%;
 }
@@ -315,4 +309,12 @@ input[type='checkbox'] {
 
 .hide {
     display: none;
+}
+
+.status {
+    font-family: Roboto-Italic;
+    font-size: 24px;
+    color: #C8C8C8;
+    align-items: flex-start;
+    background: #E1E1E1;
 }
