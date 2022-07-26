@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 
@@ -13,7 +14,6 @@ function TodoItem({
     handleDateSet,
     handleToggleCancel,
     handleToggleIsWrite,
-
 }) {
     // const [input, setInput] = useState("")
     const handleChceckboxChange = () => {
@@ -54,7 +54,7 @@ function TodoItem({
 
     }
     const handleCancelClick = () => {
-        handleToggleCancel(todo.id, todo.date, todo.commit, handleWriteClick)
+        handleToggleCancel(todo.id, todo.date, todo.commit)
     }
     const handleDateChange = (e) => {
         handleDateSet(todo.id, e.target.value)
@@ -63,7 +63,6 @@ function TodoItem({
 
     const handleCommitChange = (e) => {
         handleChangeTask(todo.id, e.target.value)
-
     }
 
 
@@ -75,7 +74,9 @@ function TodoItem({
                 <div className="openTodoCheckbox">
                     <div className="checkLabel">
                         <input type="checkbox" id={todo.id} checked={todo.isDone} onChange={handleChceckboxChange} />
-                        <label htmlFor={todo.id}
+
+                        <label className="label"
+                            htmlFor={todo.id}
                         >{todo.content}</label>
                     </div>
 
@@ -101,7 +102,7 @@ function TodoItem({
                         <input type="date"
                             id="date"
                             name="todo-date"
-                            defaultValue={todo.date}
+                            value={todo.date}
                             min="2022-03-24"
                             max="2022-09-01"
                             onChange={handleDateChange} />
@@ -113,7 +114,7 @@ function TodoItem({
                     </div>
                     <div className='commitArea' >
                         <textarea
-                            defaultValue={todo.commit}
+                            value={todo.commit}
                             id={todo.id}
                             name="commit"
                             onChange={handleCommitChange}
@@ -148,17 +149,32 @@ function TodoItem({
 
 
 
+function Status(countDoneTask, countLeftTask) {
+
+
+
+    return (
+        <div className='status'>
+            <div className='taskLeft'>{countLeftTask}task Left</div>
+            <div className='taskComplete'>{countDoneTask}task Completed</div>
+        </div>
+    )
+}
+
+
+
+
 function App() {
 
     const [todos, setTodos] = useState([
         {
             id: 1,
-            content: 'default 1',
+            content: '每一步都是為了更好的自己、前進吧！',
             isDone: true,
             isWrite: true,
             isImportant: false,
-            commit: '好重要',
-            date: '2022-07-21'
+            commit: '你很棒',
+            date: '2022-07-25'
         },
         // {
         //     id: 2,
@@ -169,6 +185,7 @@ function App() {
         // }
     ])
     const [value, setValue] = useState('')
+
 
     const handleInputChange = (e) => {
         setValue(e.target.value)
@@ -203,20 +220,34 @@ function App() {
         // console.log('event', event)
         event.preventDefault()
 
-        setTodos(prev => {
+        setTodos(todo => {
             // console.log('sd', prev.length)
             return [{
-                id: prev.length + 1,
+                id: todo.length + 1,
                 content: value,
                 isDone: false,
                 isWrite: false,
                 isImportant: false,
                 commit: "",
                 date: "",
-            }, ...prev]
+            }, ...todo]
         })
 
         setValue('')
+    }
+
+    const handleToggleCancel = (id, todo, date, commit,) => {
+        console.log("handleTogglCancel", id, date, commit);
+        const changeValue = todos.map(todo => {
+            if (todo.id !== id) return todo
+            return {
+                ...todo,
+                isWrite: false,
+                date: "",
+                commit: "",
+            }
+        })
+        setTodos(changeValue)
     }
 
 
@@ -265,23 +296,39 @@ function App() {
         })
         setTodos(changeValue)
     }
-    const handleAddClick = () => {
-    }
 
-    const handleToggleCancel = (id, date, commit, handleWriteClick) => {
-        console.log("handleToggleancel", id, date, commit);
-        const changeValue = todos.map(todo => {
-            if (todo.id !== id) return todo
-            return {
-                ...todo,
-                date: " ",
-                commit: " ",
-            }
-        })
-        handleWriteClick()
-        setTodos(changeValue)
+
+    const [countLT, setCountLT] = useState('')
+    const [countDT, setCountDT] = useState('')
+
+    const countLeftTask = () => {
+        const lT = todos.reduce((all, todo) =>
+            todo.isDone ? all : all + 1,
+            0
+        );
+        setCountLT(lT)
+        console.log("countLeftTask", lT)
 
     }
+
+    const countDoneTask = () => {
+        const dT = todos.reduce((count, todo) =>
+            todo.isDone ? count + 1 : count,
+            0
+        );
+        setCountDT(dT)
+        console.log("countDoneTask", dT)
+    }
+    const handleCountClick = () => {
+        countDoneTask()
+        countLeftTask()
+        // console.log(lt,dT)
+    }
+
+    useEffect(() => {
+        countDoneTask()
+        countLeftTask()
+    })
 
     return (
         <div className="App">
@@ -316,21 +363,28 @@ function App() {
                     handleChangeTask={handleChangeTask}
                     handleDateChange={handleDateChange}
                     handleDateSet={handleDateSet}
-                    handleAddClick={handleAddClick}
+
                     handleToggleIsWrite={handleToggleIsWrite}
                     handleToggleCancel={handleToggleCancel}
-
                 />
             )
             }
+            <div className='statusContainer'>
+                <div className='status'>
+                    {countLT}task left/{countDT}task completed
+                </div>
+            </div>
 
             <div className="todoList">
                 <div className="openTodoItem">
                     <div className="openTodoCheckbox">
-                        <div className="checkLabel">
+                        <div className="checkBox">
                             <input type="checkbox" id="checkbox" onChange={handleChceckboxToggleIsDone} />
+                        </div>
+                        <div className='checkLabel'>
                             <label htmlFor="checkbox">Type Something Here…</label>
                         </div>
+
 
                         <div className="todoBtn">
                             <button className="btn_star">star</button>
@@ -370,11 +424,12 @@ function App() {
                         <button className="cancel"
                         >X Cancel</button>
                         <button className="addTask"
-                            onClick={handleAddClick}
+                        // onClick={handleAddClick}
                         >+ Add Task</button>
                     </div>
 
                 </div>
+
 
                 <div className="todoItem">
 

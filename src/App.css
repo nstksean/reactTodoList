@@ -264,9 +264,6 @@ input[type='checkbox'] {
     width: 30%;
 }
 
-#btn_write[type=checkbox]:checked~.openTodoDetail {
-    display: none;
-}
 
 .todoItem {
     box-sizing: border-box;
@@ -309,6 +306,11 @@ input[type='checkbox'] {
 
 .hide {
     display: none;
+}
+
+.statusContainer {
+    display: flex;
+    width: 60%;
 }
 
 .status {
