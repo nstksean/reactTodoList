@@ -1,168 +1,7 @@
 
-
 import React, { useEffect, useState } from 'react';
 import './App.css';
-
-
-function TodoItem({
-    handleChangeTask,
-    className, todo, idx,
-    handleDeleteTodo,
-    handleChceckboxToggleIsDone,
-    handleToggleIsImportant,
-    handleAddTask,
-    handleDateSet,
-    handleToggleCancel,
-    handleToggleIsWrite,
-}) {
-    // const [input, setInput] = useState("")
-    const handleChceckboxChange = () => {
-        handleChceckboxToggleIsDone(todo.id)
-    }
-    const handleDeleteClick = () => {
-        handleDeleteTodo(todo.id)
-    }
-    const handleWriteClick = () => {
-        handleToggleIsWrite(todo.id)
-    }
-    const handleStarClick = () => {
-        handleToggleIsImportant(todo.id)
-    }
-    const getImportant = () => {
-        return todo.isImportant ? "checkedOpenTodoItem" : "openTodoItem";
-    }
-    const getDetail = () => {
-        return todo.isWrite ? "" : "hide"
-    }
-    const noDetail = () => {
-        return todo.isWrite ? "hide" : ""
-    }
-
-    // const showDetailDate = () => {
-    //     return todo.date !== "" ? "" : "hide"
-    // }
-    // const showDetailCommit = () => {
-    //     return todo.commit !== "" ? "" : "hide"
-    // }
-
-    const handleAddClick = () => {
-        // handleAddTask(todo.id)
-        // handleDateSet(todo.id)
-        //test
-        handleWriteClick()
-        // alert("Click Add|||=.=")
-
-    }
-    const handleCancelClick = () => {
-        handleToggleCancel(todo.id, todo.date, todo.commit)
-    }
-    const handleDateChange = (e) => {
-        handleDateSet(todo.id, e.target.value)
-    }
-
-
-    const handleCommitChange = (e) => {
-        handleChangeTask(todo.id, e.target.value)
-    }
-
-
-
-    return (
-
-        <div className="todoList">
-            <div className={getImportant()}>
-                <div className="openTodoCheckbox">
-                    <div className="checkLabel">
-                        <input type="checkbox" id={todo.id} checked={todo.isDone} onChange={handleChceckboxChange} />
-
-                        <label className="label"
-                            htmlFor={todo.id}
-                        >{todo.content}</label>
-                    </div>
-
-                    <div className="todoBtn">
-                        <button
-                            onClick={handleStarClick}
-                            className="btn_star">Star</button>
-                        <button
-                            onClick={handleWriteClick}
-                            className="btn_write">Write</button>
-                        <button
-                            onClick={handleDeleteClick}
-                            className="btn_delete">delete</button>
-                    </div>
-                </div>
-
-                <div className={getDetail() + " " + "openTodoDetail"}>
-                    <div className="labelContainer">
-                        <div className='faviconDate'>D </div>
-                        <label htmlFor="date">date :</label>
-                    </div>
-                    <div className='dateInput'>
-                        <input type="date"
-                            id="date"
-                            name="todo-date"
-                            value={todo.date}
-                            min="2022-03-24"
-                            max="2022-09-01"
-                            onChange={handleDateChange} />
-                    </div>
-                    <div className="labelContainer">
-                        <div className='faviconCommit'>C
-                        </div>
-                        <label htmlFor={todo.id}>commit :</label>
-                    </div>
-                    <div className='commitArea' >
-                        <textarea
-                            value={todo.commit}
-                            id={todo.id}
-                            name="commit"
-                            onChange={handleCommitChange}
-                            row={4}
-                            cols={35} /></div>
-                </div>
-                <div className={noDetail() + " " + "todoDetail"}>
-                    <span className="date" >
-                        {todo.date === ' ' || "" ? " " : "Date:"}</span>
-                    <span className="date">
-                        {todo.date === ' ' || "" ? " " : todo.date}</span>
-                    <span className="date">
-                        {todo.commit === ' ' || "" ? "" : "commit"}</span>
-                </div>
-
-                <div className={getDetail() + " " + 'todoDetailBtnContainer'}>
-                    <button className="cancel"
-                        onClick={handleCancelClick}>
-                        X Cancel
-                    </button>
-                    <button
-                        className="addTask"
-                        onClick={handleAddClick}>
-                        + Add Task
-                    </button>
-                </div>
-
-            </div>
-        </div >
-    );
-}
-
-
-
-function Status(countDoneTask, countLeftTask) {
-
-
-
-    return (
-        <div className='status'>
-            <div className='taskLeft'>{countLeftTask}task Left</div>
-            <div className='taskComplete'>{countDoneTask}task Completed</div>
-        </div>
-    )
-}
-
-
-
+import TodoItem from './TodoItem';
 
 function App() {
 
@@ -176,13 +15,15 @@ function App() {
             commit: '你很棒',
             date: '2022-07-25'
         },
-        // {
-        //     id: 2,
-        //     content: 'default 2',
-        //     isDone: true,
-        //     isWrite: false,
-        //     isImportant: false,
-        // }
+        {
+            id: 2,
+            content: '快到了，要去找工作了',
+            isDone: false,
+            isWrite: false,
+            isImportant: false,
+            commit: 'ＯＫ的',
+            date: '2022-07-28'
+        }
     ])
     const [value, setValue] = useState('')
 
@@ -307,7 +148,6 @@ function App() {
             0
         );
         setCountLT(lT)
-        console.log("countLeftTask", lT)
 
     }
 
@@ -317,25 +157,49 @@ function App() {
             0
         );
         setCountDT(dT)
-        console.log("countDoneTask", dT)
     }
-    const handleCountClick = () => {
+    useEffect((status) => {
         countDoneTask()
         countLeftTask()
-        // console.log(lt,dT)
-    }
-
-    useEffect(() => {
-        countDoneTask()
-        countLeftTask()
+        hideIsDon()
     })
+    const [status, setStatus] = useState("")
+
+    const handleTab1Click = () => {
+        setStatus("tab1")
+    }
+    const handleTab2Click = () => {
+        setStatus("tab2")
+    }
+    const handleTab3Click = () => {
+        hideIsDon()
+        console.log("tab3")
+    }
+    const hideIsDon = () => {
+        return todos.isDone ? "hide" : " "
+    }
+    // const getStatus = (status, show, setShow) => {
+    //     switch (status) {
+    //         case "tab1": return todo.map
+    //         case "tab2": return setShow("showDone")
+    //         case "tab3": return setShow("showNoDone")
+    //         default: setShow("showAll")
+    //     }
+    // }
 
     return (
         <div className="App">
+            {/* <TabNav /> */}
             <div className="navContainer">
-                <div className="filter">My Tasks</div>
-                <div className="filter">In Progress</div>
-                <div className="filter">Completed</div>
+                <div className="filter" onClick={handleTab1Click}
+                /*id={tab1}*/
+                >My Task</div>
+                <div className="filter" onClick={handleTab2Click}
+                // id={tab2}
+                >In Progress</div>
+                <div className="filter" onClick={handleTab3Click}
+                // id={tab3}
+                >Completed</div>
             </div>
             <form onSubmit={handleInputSubmit}>
                 <div className="input">
@@ -349,32 +213,71 @@ function App() {
                     <button onClick={handleInputSubmit}>Add todo</button>
                 </div>
             </form>
+            <div className={hideIsDon()}>
+                {todos.map((todo, idx) =>
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        idx={idx}
+                        commit={todo.commit}
+                        date={todo.date}
+                        isDone={todo.isDone}
+                        handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
+                        handleDeleteTodo={handleDeleteTodo}
+                        handleToggleIsImportant={handleToggleIsImportant}
+                        handleChangeTask={handleChangeTask}
+                        handleDateChange={handleDateChange}
+                        handleDateSet={handleDateSet}
+                        handleToggleIsWrite={handleToggleIsWrite}
+                        handleToggleCancel={handleToggleCancel}
+                    />)
+                }</div>
+            <div className='todoList'>
+                {todos.map((todo, idx) =>
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        idx={idx}
+                        commit={todo.commit}
+                        date={todo.date}
+                        isDone={todo.isDone}
+                        handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
+                        handleDeleteTodo={handleDeleteTodo}
+                        handleToggleIsImportant={handleToggleIsImportant}
+                        handleChangeTask={handleChangeTask}
+                        handleDateChange={handleDateChange}
+                        handleDateSet={handleDateSet}
+                        handleToggleIsWrite={handleToggleIsWrite}
+                        handleToggleCancel={handleToggleCancel}
+                    />
+                )}</div>
+            <div className='todoList'>
+                {todos.map((todo, idx) =>
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        idx={idx}
+                        commit={todo.commit}
+                        date={todo.date}
+                        isDone={todo.isDone}
+                        handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
+                        handleDeleteTodo={handleDeleteTodo}
+                        handleToggleIsImportant={handleToggleIsImportant}
+                        handleChangeTask={handleChangeTask}
+                        handleDateChange={handleDateChange}
+                        handleDateSet={handleDateSet}
+                        handleToggleIsWrite={handleToggleIsWrite}
+                        handleToggleCancel={handleToggleCancel}
+                    />
+                )}</div>
 
-            {todos.map((todo, idx) =>
-                <TodoItem
-                    key={todo.id}
-                    todo={todo}
-                    idx={idx}
-                    commit={todo.commit}
-                    date={todo.date}
-                    handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
-                    handleDeleteTodo={handleDeleteTodo}
-                    handleToggleIsImportant={handleToggleIsImportant}
-                    handleChangeTask={handleChangeTask}
-                    handleDateChange={handleDateChange}
-                    handleDateSet={handleDateSet}
 
-                    handleToggleIsWrite={handleToggleIsWrite}
-                    handleToggleCancel={handleToggleCancel}
-                />
-            )
-            }
             <div className='statusContainer'>
                 <div className='status'>
                     {countLT}task left/{countDT}task completed
                 </div>
             </div>
-
+            {/* 
             <div className="todoList">
                 <div className="openTodoItem">
                     <div className="openTodoCheckbox">
@@ -477,7 +380,7 @@ function App() {
                     </div>
                 </div>
 
-            </div>
+            </div>*/}
 
         </div>
 
