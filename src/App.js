@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import TodoItem from './TodoItem';
-
+import pen from './Icon/pen-solid.svg'
 function App() {
 
     const [todos, setTodos] = useState([
@@ -163,7 +163,7 @@ function App() {
         countLeftTask()
         hideIsDon()
     })
-    const [status, setStatus] = useState("")
+    const [status, setStatus] = useState("tab1")
 
     const handleTab1Click = () => {
         setStatus("tab1")
@@ -178,14 +178,15 @@ function App() {
     const hideIsDon = () => {
         return todos.isDone ? "hide" : " "
     }
-    // const getStatus = (status, show, setShow) => {
-    //     switch (status) {
-    //         case "tab1": return todo.map
-    //         case "tab2": return setShow("showDone")
-    //         case "tab3": return setShow("showNoDone")
-    //         default: setShow("showAll")
-    //     }
-    // }
+
+    const getStatus = (status, show, setShow) => {
+        switch (status) {
+            case "tab1": return todo.map
+            case "tab2": return setShow("showDone")
+            case "tab3": return setShow("showNoDone")
+            default: setShow("showAll")
+        }
+    }
 
     return (
         <div className="App">
@@ -193,7 +194,7 @@ function App() {
             <div className="navContainer">
                 <div className="filter" onClick={handleTab1Click}
                 /*id={tab1}*/
-                >My Task</div>
+                ><img src={pen} alt="mytask" />My task</div>
                 <div className="filter" onClick={handleTab2Click}
                 // id={tab2}
                 >In Progress</div>
@@ -213,7 +214,7 @@ function App() {
                     <button onClick={handleInputSubmit}>Add todo</button>
                 </div>
             </form>
-            <div className={hideIsDon()}>
+            <div className="hide todoList">
                 {todos.map((todo, idx) =>
                     <TodoItem
                         key={todo.id}
@@ -222,6 +223,7 @@ function App() {
                         commit={todo.commit}
                         date={todo.date}
                         isDone={todo.isDone}
+                        status={status}
                         handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
                         handleDeleteTodo={handleDeleteTodo}
                         handleToggleIsImportant={handleToggleIsImportant}
