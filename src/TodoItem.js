@@ -1,5 +1,9 @@
 
 import './App.css';
+import penIcon from './Icon/pen-solid.svg'
+import calendar from './Icon/calendar-days-solid.svg'
+import commentIcon from './Icon/comment-dots-solid.svg'
+import star from './Icon/star.svg'
 
 function TodoItem({
     handleChangeTask,
@@ -10,7 +14,7 @@ function TodoItem({
     handleAddTask,
     handleDateSet,
     handleToggleCancel,
-    handleToggleIsWrite,
+    handleToggleIsWrite, status
 }) {
     // const [input, setInput] = useState("")
     const handleChceckboxChange = () => {
@@ -80,10 +84,14 @@ function TodoItem({
                     <div className="todoBtn">
                         <button
                             onClick={handleStarClick}
-                            className="btn_star">Star</button>
+                            className="btn_write">
+                            <img src={star} alt="star" />
+                        </button>
                         <button
                             onClick={handleWriteClick}
-                            className="btn_write">Write</button>
+                            className="btn_write">
+                            <img src={penIcon} alt="mytask" />
+                        </button>
                         <button
                             onClick={handleDeleteClick}
                             className="btn_delete">delete</button>
@@ -92,7 +100,9 @@ function TodoItem({
 
                 <div className={getDetail() + " " + "openTodoDetail"}>
                     <div className="labelContainer">
-                        <div className='faviconDate'>D </div>
+                        <div className='faviconDate'>
+                            <img src={calendar} alt="date" />
+                        </div>
                         <label htmlFor="date">date :</label>
                     </div>
                     <div className='dateInput'>
@@ -105,7 +115,8 @@ function TodoItem({
                             onChange={handleDateChange} />
                     </div>
                     <div className="labelContainer">
-                        <div className='faviconCommit'>C
+                        <div className='faviconDate'>
+                            <img src={commentIcon} alt="comment" />
                         </div>
                         <label htmlFor={todo.id}>commit :</label>
                     </div>

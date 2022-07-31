@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import TodoItem from './TodoItem';
-import pen from './Icon/pen-solid.svg'
+
+
 function App() {
 
     const [todos, setTodos] = useState([
@@ -139,6 +140,7 @@ function App() {
     }
 
 
+
     const [countLT, setCountLT] = useState('')
     const [countDT, setCountDT] = useState('')
 
@@ -165,13 +167,13 @@ function App() {
     })
     const [status, setStatus] = useState("tab1")
 
-    const handleTab1Click = () => {
+    const handleTabMyTaskClick = () => {
         setStatus("tab1")
     }
-    const handleTab2Click = () => {
+    const handleTabInProgressClick = () => {
         setStatus("tab2")
     }
-    const handleTab3Click = () => {
+    const handleTabCompleteClick = () => {
         hideIsDon()
         console.log("tab3")
     }
@@ -179,29 +181,30 @@ function App() {
         return todos.isDone ? "hide" : " "
     }
 
-    const getStatus = (status, show, setShow) => {
-        switch (status) {
-            case "tab1": return todo.map
-            case "tab2": return setShow("showDone")
-            case "tab3": return setShow("showNoDone")
-            default: setShow("showAll")
-        }
-    }
+    // const getStatus = (status, show, setShow) => {
+    //     switch (status) {
+    //         case "tab1": return
+    //         case "tab2": return setShow("showDone")
+    //         case "tab3": return setShow("showNoDone")
+    //         default: setShow("showAll")
+    //     }
+    // }
 
     return (
         <div className="App">
             {/* <TabNav /> */}
             <div className="navContainer">
-                <div className="filter" onClick={handleTab1Click}
+                <div className="filter" onClick={handleTabMyTaskClick}
                 /*id={tab1}*/
-                ><img src={pen} alt="mytask" />My task</div>
-                <div className="filter" onClick={handleTab2Click}
+                >My task</div>
+                <div className="filter" onClick={handleTabInProgressClick}
                 // id={tab2}
                 >In Progress</div>
-                <div className="filter" onClick={handleTab3Click}
+                <div className="filter" onClick={handleTabCompleteClick}
                 // id={tab3}
                 >Completed</div>
             </div>
+
             <form onSubmit={handleInputSubmit}>
                 <div className="input">
                     <input className="inputer"
@@ -271,7 +274,8 @@ function App() {
                         handleToggleIsWrite={handleToggleIsWrite}
                         handleToggleCancel={handleToggleCancel}
                     />
-                )}</div>
+                )}
+            </div>
 
 
             <div className='statusContainer'>
