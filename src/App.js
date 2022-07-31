@@ -61,7 +61,6 @@ function App() {
     const handleInputSubmit = (event) => {
         // console.log('event', event)
         event.preventDefault()
-
         setTodos(todo => {
             // console.log('sd', prev.length)
             return [{
@@ -163,24 +162,17 @@ function App() {
     useEffect((status) => {
         countDoneTask()
         countLeftTask()
-        hideIsDon()
     })
-    const [status, setStatus] = useState("tab1")
-
-    const handleTabMyTaskClick = () => {
-        setStatus("tab1")
+    const [Tabs, setTabs] = useState("tab1")
+    const handleTabMyTaskClick = (e) => {
+        setTabs("tab1")
     }
-    const handleTabInProgressClick = () => {
-        setStatus("tab2")
+    const handleTabInProgressClick = (e) => {
+        setTabs("tab2")
     }
-    const handleTabCompleteClick = () => {
-        hideIsDon()
-        console.log("tab3")
+    const handleTabCompleteClick = (e) => {
+        setTabs("tab3")
     }
-    const hideIsDon = () => {
-        return todos.isDone ? "hide" : " "
-    }
-
     // const getStatus = (status, show, setShow) => {
     //     switch (status) {
     //         case "tab1": return
@@ -195,13 +187,13 @@ function App() {
             {/* <TabNav /> */}
             <div className="navContainer">
                 <div className="filter" onClick={handleTabMyTaskClick}
-                /*id={tab1}*/
+                    value={"tab1"}
                 >My task</div>
                 <div className="filter" onClick={handleTabInProgressClick}
-                // id={tab2}
+                    value={"tab2"}
                 >In Progress</div>
                 <div className="filter" onClick={handleTabCompleteClick}
-                // id={tab3}
+                    value={"tab3"}
                 >Completed</div>
             </div>
 
@@ -217,7 +209,7 @@ function App() {
                     <button onClick={handleInputSubmit}>Add todo</button>
                 </div>
             </form>
-            <div className="hide todoList">
+            <div className={"todoList" + " " + (Tabs === "tab1" ? '' : "hide")}>
                 {todos.map((todo, idx) =>
                     <TodoItem
                         key={todo.id}
@@ -226,7 +218,6 @@ function App() {
                         commit={todo.commit}
                         date={todo.date}
                         isDone={todo.isDone}
-                        status={status}
                         handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
                         handleDeleteTodo={handleDeleteTodo}
                         handleToggleIsImportant={handleToggleIsImportant}
@@ -237,27 +228,28 @@ function App() {
                         handleToggleCancel={handleToggleCancel}
                     />)
                 }</div>
-            <div className='todoList'>
-                {todos.map((todo, idx) =>
-                    <TodoItem
-                        key={todo.id}
-                        todo={todo}
-                        idx={idx}
-                        commit={todo.commit}
-                        date={todo.date}
-                        isDone={todo.isDone}
-                        handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
-                        handleDeleteTodo={handleDeleteTodo}
-                        handleToggleIsImportant={handleToggleIsImportant}
-                        handleChangeTask={handleChangeTask}
-                        handleDateChange={handleDateChange}
-                        handleDateSet={handleDateSet}
-                        handleToggleIsWrite={handleToggleIsWrite}
-                        handleToggleCancel={handleToggleCancel}
-                    />
-                )}</div>
-            <div className='todoList'>
-                {todos.map((todo, idx) =>
+            <div className={"todoList" + " " + (Tabs === "tab2" ? '' : "hide")}>
+                {todos.filter(todo => todo.isDone === false)
+                    .map((todo, idx) =>
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            idx={idx}
+                            commit={todo.commit}
+                            date={todo.date}
+                            isDone={todo.isDone}
+                            handleChceckboxToggleIsDone={handleChceckboxToggleIsDone}
+                            handleDeleteTodo={handleDeleteTodo}
+                            handleToggleIsImportant={handleToggleIsImportant}
+                            handleChangeTask={handleChangeTask}
+                            handleDateChange={handleDateChange}
+                            handleDateSet={handleDateSet}
+                            handleToggleIsWrite={handleToggleIsWrite}
+                            handleToggleCancel={handleToggleCancel}
+                        />
+                    )}</div>
+            <div className={"todoList" + " " + (Tabs === "tab3" ? '' : "hide")}>
+                {todos.filter(todo => todo.isDone === true).map((todo, idx) =>
                     <TodoItem
                         key={todo.id}
                         todo={todo}
