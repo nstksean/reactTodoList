@@ -9,21 +9,21 @@ function App() {
     const [todos, setTodos] = useState([
         {
             id: 1,
-            content: '每一步都是為了更好的自己、前進吧！',
-            isDone: true,
+            content: '感謝您的使用，於輸入框中輸入文字，按下Enter，即可新增待辦事項',
+            isDone: false,
             isWrite: true,
             isImportant: false,
-            commit: '你很棒',
+            commit: '於此輸入細節',
             date: '2022-07-25'
         },
         {
             id: 2,
-            content: '快到了，要去找工作了',
-            isDone: false,
+            content: '點擊勾選框修改是否完成，鉛筆觸發細節選單，星星觸發是否較重要，刪除鍵刪除。',
+            isDone: true,
             isWrite: false,
-            isImportant: false,
-            commit: 'ＯＫ的',
-            date: '2022-07-28'
+            isImportant: true,
+            commit: '建勳有夠帥',
+            date: '2022-02-21'
         }
     ])
     const [value, setValue] = useState('')
@@ -206,7 +206,7 @@ function App() {
                         value={value}
                         onChange={handleInputChange}
                     />
-                    <button onClick={handleInputSubmit}>Add todo</button>
+                    {/* <button onClick={handleInputSubmit}>Add todo</button> */}
                 </div>
             </form>
             <div className={"todoList" + " " + (Tabs === "tab1" ? '' : "hide")}>
