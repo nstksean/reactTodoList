@@ -11,7 +11,7 @@ function TodoItem({
     handleDeleteTodo,
     handleChceckboxToggleIsDone,
     handleToggleIsImportant,
-    handleAddTask,
+
     handleDateSet,
     handleToggleCancel,
     handleToggleIsWrite, status
