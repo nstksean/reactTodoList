@@ -293,6 +293,12 @@ input[type='checkbox'] {
     margin-bottom: 0.8%;
 }
 
+.checkedOpenTodoItem .svgPath {
+    transform: scale(0.99);
+    fill: #F5A623;
+}
+
+
 .openTodoItem {
     display: flex;
     flex-direction: column;
@@ -342,23 +348,34 @@ button {
     -moz-appearance: none;
 }
 
-button img {
+.svgNavBtn {
     width: 25px;
-    height: 25px;
-
 }
 
-button:hover,
+.svgPath {
+    width: 100%;
+    fill: #000000;
+}
+
+.favicon {
+    width: 15px;
+}
+
+/* button:hover,
 button:focus {
     background: #4A90E2;
 }
 
 button:active {
     transform: scale(0.99);
+} */
+
+.faviconDate {
+
+    margin-right: 9px;
 }
 
-.faviconDate img {
-    width: 20px;
-    height: 20px;
-    margin-right: 9px;
+.btn_star .svgPath:hover {
+    transform: scale(0.99);
+    fill: #F5A623;
 }
